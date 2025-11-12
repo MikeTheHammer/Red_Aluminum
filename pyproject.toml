@@ -24,6 +24,10 @@ dependencies = [
   "click"
 ]
 
+[project.scripts]
+red_aluminum = "red_aluminum:red_aluminum_cli"
+
+
 [project.optional-dependencies]
 test = [
   "pytest", "pytest-mock", "pyfakefs", "wmul_test_utils"
