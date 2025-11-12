@@ -13,6 +13,7 @@ MIT License
 """
 import click
 import time
+from datetime import datetime
 from pathlib import Path
 
 __version__ = "0.0.1"
@@ -26,6 +27,8 @@ __version__ = "0.0.1"
               help="How long to sleep between each check of the folder for new data, in seconds. Default is to "
               "sleep for 1 second. Decimal values allowed. E.G. 0.25 to sleep for a quarter-second.")
 def red_aluminum_cli(folder, output, refresh_delay):
+    print(f"{datetime.now()}: Red Aluminum startup...")
+    print(f"{datetime.now()}: Watching {folder}...")
     folder = Path(folder)
     output = Path(output)
     red_aluminum(folder, output, refresh_delay)
@@ -37,6 +40,7 @@ def red_aluminum(folder: Path, output: Path, refresh_delay: float):
         new_data = gather_data(folder=folder)
         consolidated_data = compare_and_consolidate_data(new_data=new_data, previous_data=previous_data)
         converted_data = convert_data_for_output(data=consolidated_data)
+        print(f"{datetime.now()}: Output Data: {consolidated_data}")
         output_data(output_text=converted_data, output=output)
         previous_data = new_data
         time.sleep(refresh_delay)
