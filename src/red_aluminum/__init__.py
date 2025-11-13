@@ -89,6 +89,9 @@ def convert_data_for_output(data: dict) -> str:
 
 
 def output_data(output_text: str, output: Path) -> None:
-    with open(file=output, mode="wt") as output_writer:
-        output_writer.write(output_text)
-        
+    try:
+        with open(file=output, mode="wt") as output_writer:
+            output_writer.write(output_text)
+    except OSError as ose:
+        # This should catch most of the errors when trying to write the file.
+        print(f"Failure when writing file: {ose}")
